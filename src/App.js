@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import firebase from 'firebase';
-import { Header, Button, Spinner } from './components/common';
+import { Header, Spinner } from './components/common';
 import LoginForm from './components/LoginForm';
 
 class App extends Component {
@@ -31,7 +31,14 @@ class App extends Component {
 
     switch (this.state.loggedIn) {
       case true:
-        return <Button onPress={() => firebase.auth().signOut()}> Log Out </Button>;
+        // return <Button onPress={() => firebase.auth().signOut()}> Log Out </Button>;
+        // Temopray code below, becase aboce code was not working
+        return (<TouchableOpacity onPress={() => firebase.auth().signOut()}>
+          <Text style={styles.textStyle}>
+            Sign Out
+          </Text>
+        </TouchableOpacity>
+      );
       case false:
         return <LoginForm />;
       default:
@@ -50,5 +57,26 @@ class App extends Component {
     );
   }
 }
+
+const styles = {
+  textStyle: {
+    alignSelf: 'center',
+    color: '#007aff',
+    fontSize: 16,
+    fontWeight: '600',
+    paddingTop: 10,
+    paddingBottom: 10
+  },
+  buttonStyle: {
+    flex: 1,
+    alignSelf: 'stretch',
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: '#007aff',
+    marginLeft: 5,
+    marginRight: 5
+  }
+};
 
 export default App;
